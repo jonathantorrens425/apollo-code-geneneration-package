@@ -12,13 +12,19 @@ import ApolloCodegenLib
 @main
 public struct Generate: ParsableCommand {
     
-    public init() {
-        
-    }
+    @Option(name: [.short, .customLong("relative-path")], help: "A path relative to the same directory in which the build tool is located.")
+    var relativePath: String
+    
+    @Option(name: [.short, .customLong("package-name")], help: "The name of the Apollo package that will be generated")
+    var packageName: String
+    
+    public init() { }
     
     mutating public func run() throws {
         do {
-            try CodeGenerationConfiguration.build()
+            let configuration = try CodeGenerationConfiguration(packageName: packageName, relativePath: relativePath)
+            print("🤖 Initiating Apollo Code Generation")
+            try configuration.build()
         } catch {
             print("🛑 Error: (\(error)) \(error.localizedDescription)")
         }
