@@ -1,10 +1,5 @@
 // swift-tools-version: 5.7
 // The swift-tools-version declares the minimum version of Swift required to build this package.
-// MARK: Executable Target Docs:
-// https://developer.apple.com/documentation/packagedescription/target/executabletarget(name:dependencies:path:exclude:sources:resources:publicheaderspath:csettings:cxxsettings:swiftsettings:linkersettings:plugins:)
-
-// MARK: Creating Swift Packages:
-// https://developer.apple.com/documentation/xcode/creating-a-standalone-swift-package-with-xcode
 
 import PackageDescription
 
@@ -33,8 +28,11 @@ let package = Package(
                 .product(name: "ApolloCodegenLib", package: "apollo-ios"),
             ]
         ),
-        .testTarget(
-            name: "ApolloCodeGenerationPackageTests",
-            dependencies: ["ApolloCodeGenerationPackage"]),
+        .target(
+            name: "GenerateCore",
+            dependencies: [
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                .product(name: "ApolloCodegenLib", package: "apollo-ios"),
+        ]),
     ]
 )

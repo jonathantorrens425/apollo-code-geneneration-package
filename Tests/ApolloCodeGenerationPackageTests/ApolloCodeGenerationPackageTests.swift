@@ -1,11 +1,21 @@
 import XCTest
+import ApolloCodegenLib
+
 @testable import ApolloCodeGenerationPackage
 
 final class ApolloCodeGenerationPackageTests: XCTestCase {
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-//        XCTAssertEqual(ApolloCodeGenerationPackage().text, "Hello, World!")
+
+    func testPathParsing() throws {
+        let relativePathEndingSlash = "./../test/"
+        let currentDirectory = FileManager.default.currentDirectoryPath.split(separator: "/")
+        
+        let configuration = try CodeGenerationConfiguration(
+            schemaName: nil, relativePath: relativePathEndingSlash, absolutePath: nil)
+        
+        XCTAssertTrue(configuration.apolloConfiguration.schemaName == "ApolloSchemaPackage")
+        
+        
+        
     }
+    
 }
